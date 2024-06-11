@@ -5,7 +5,7 @@ class UsuariosController {
         try {
             const filtro = req.query.filtro || '';
             const conexao = await new ConexaoMySql().getConexao();
-            const sql = 'SELECT * FROM usuarios WHERE nome LIKE ?';
+            const sql = 'SELECT * FROM usuario WHERE nome LIKE ?';
             const [resultado] = await conexao.execute(sql, [`%${filtro}%`]);
 
             resp.send(
@@ -29,7 +29,7 @@ class UsuariosController {
             }
 
             const conexao = await new ConexaoMySql().getConexao();
-            const sql = 'INSERT INTO usuarios (nome, senha) VALUES (?,md5(?))';
+            const sql = 'INSERT INTO usuario (nome, email, senha) VALUES (?,?,md5(?))';
             const resultado = await conexao.execute(sql, [novoCadastro.nome, novoCadastro.senha]);
 
             resp.send({ resultado })
@@ -48,7 +48,7 @@ class UsuariosController {
             }
 
             const conexao = await new ConexaoMySql().getConexao();
-            const sql = 'UPDATE usuarios SET nome = ? WHERE id_usuarios = ?';
+            const sql = 'UPDATE usuario SET nome = ? WHERE id = ?';
             const resultado = await conexao.execute(sql, [usuarioEditar.nome, usuarioEditar.id_usuarios]);
 
             resp.send({ resultado });
@@ -60,7 +60,7 @@ class UsuariosController {
     async excluir(req, resp) {
         try {
             const conexao = await new ConexaoMySql().getConexao();
-            const sql = 'DELETE FROM usuarios WHERE id_usuarios = ?';
+            const sql = 'DELETE FROM usuario WHERE id = ?';
             const [resultado] = await conexao.execute(sql, [+req.params.idUsuario]);
 
             resp.send(resultado)

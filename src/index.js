@@ -29,9 +29,6 @@ app.delete('/', (req, res) => {
     res.send('Chamou o DELETE!');
 });
 
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
-});
 
 // autenticação
 const autenticacaoController = new AutenticacaoController();
@@ -46,4 +43,4 @@ app.delete('/usuarios/:idUsuario', usuariosController.excluir);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
-  });
+});
