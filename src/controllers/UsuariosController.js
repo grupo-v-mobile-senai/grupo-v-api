@@ -3,6 +3,10 @@ import ConexaoMySql from "../database/conexaoMySql.js";
 class UsuariosController {
     async listar(req, resp) {
         try {
+            const idUsuarioLogado = req.headers['x-usuario-logado'];
+
+            console.log(idUsuarioLogado);
+
             const filtro = req.query.filtro || '';
             const conexao = await new ConexaoMySql().getConexao();
             const sql = 'SELECT * FROM usuario WHERE nome LIKE ?';
@@ -23,14 +27,14 @@ class UsuariosController {
         try {
             const novoCadastro = req.body;
 
-            if (!novoCadastro.nome || !novoCadastro.senha) {
-                resp.status(400).send('Os campos de usuario e senha devem ser preenchidos!');
+            if (!novoCadastro.nome || !novoCadastro.email || !novoCadastro.senha) {
+                resp.status(400).send('Os campos de usuario, e-mail e senha devem ser preenchidos!');
                 return;
             }
 
             const conexao = await new ConexaoMySql().getConexao();
             const sql = 'INSERT INTO usuario (nome, email, senha) VALUES (?,?,md5(?))';
-            const resultado = await conexao.execute(sql, [novoCadastro.nome, novoCadastro.senha]);
+            const resultado = await conexao.execute(sql, [novoCadastro.nome, novoCadastro.email, novoCadastro.senha]);
 
             resp.send({ resultado })
         } catch (error) {
@@ -49,7 +53,7 @@ class UsuariosController {
 
             const conexao = await new ConexaoMySql().getConexao();
             const sql = 'UPDATE usuario SET nome = ? WHERE id = ?';
-            const resultado = await conexao.execute(sql, [usuarioEditar.nome, usuarioEditar.id_usuarios]);
+            const resultado = await conexao.execute(sql, [usuarioEditar.nome, usuarioEditar.email, usuarioEditar.id]);
 
             resp.send({ resultado });
         } catch (error) {

@@ -1,10 +1,9 @@
 import ConexaoMySql from "../database/conexaoMySql.js";
 
-
 class AutenticacaoController {
     async logar(req, resp) {
         try {
-            if (!req.body.usuario || !req.body.senha) {
+            if (!req.body.email || !req.body.senha) {
                 resp.status(400).send('Os campos usuário e senha são obrigatórios!');
                 return;
             }
@@ -16,7 +15,7 @@ class AutenticacaoController {
             const usuarioEncontradoNoBancoDeDados = resultado[0];
 
             if (!usuarioEncontradoNoBancoDeDados) {
-                resp.status(401).send('Usuario ou senha incorreta!');
+                resp.status(401).send('Email ou senha incorreta!');
                 return;
             }
 
