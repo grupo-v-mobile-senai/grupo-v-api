@@ -3,7 +3,7 @@ import express from 'express';
 import CategoriasController from './controllers/CategoriasController.js';
 import AutenticacaoController from './controllers/AutenticacaoUsuariosController.js';
 import UsuariosController from './controllers/UsuariosController.js';
-
+import ProdutosController from './controllers/ProdutosController.js';
 
 // const express = require('express');
 const port = 3000;
@@ -20,15 +20,17 @@ app.use(
 const categoriasController = new CategoriasController();
 app.get('/categorias', categoriasController.listar)
 app.post('/categorias', categoriasController.adicionar)
-
 app.put('/', (req, res) => {
     res.send('Chamou o PUT!');
 });
-
 app.delete('/', (req, res) => {
     res.send('Chamou o DELETE!');
 });
 
+//CRUD produtos
+const produtosController = new ProdutosController()
+app.get('/produtos', produtosController.listar)
+app.post('/produtos', produtosController.adicionar)
 
 // autenticação
 const autenticacaoController = new AutenticacaoController();
