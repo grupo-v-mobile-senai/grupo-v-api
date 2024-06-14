@@ -4,8 +4,8 @@ class ProdutosController {
     async listar(req, res) {
         try {
             const conexao = await new ConexaoMySql().getConexao();
-            const sql = 'SELECT * FROM produto';
-            const [resultado] = await conexao.execute(sql);
+            const sql = 'SELECT * FROM produto WHERE categoria_id = ?';
+            const [resultado] = await conexao.execute(sql, [req.params.idCategoria]);
             
             res.send(resultado.map((prod) => {
                 return prod;
@@ -19,8 +19,8 @@ class ProdutosController {
             const novoProduto = req.body;
 
             const conexao = await new ConexaoMySql().getConexao();
-            const sql = 'INSERT INTO produto (nome, estoque, cor, categoria_id) VALUES(?,?,?,?)';
-            const [resultado] = await conexao.execute(sql, [novoProduto.nome, novoProduto.estoque, novoProduto.cor, novoProduto.categoria_id]);
+            const sql = 'INSERT INTO produto (nome, estoque, cores, categoria_id) VALUES(?,?,?,?)';
+            const [resultado] = await conexao.execute(sql, [novoProduto.nome, novoProduto.estoque, novoProduto.cores, novoProduto.categoria.id]);
             res.send(resultado);
         } catch (error) {
             res.status(500).send(error);

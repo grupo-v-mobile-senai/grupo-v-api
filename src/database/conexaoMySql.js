@@ -4,7 +4,7 @@ const dbConfig = {
   host: 'localhost',
   port: '3306',
   user: 'root',
-  password: 'ian123',
+  password: 'senai',
   database: 'elecStock',
 };
 

@@ -29,7 +29,7 @@ app.delete('/', (req, res) => {
 
 //CRUD produtos
 const produtosController = new ProdutosController()
-app.get('/produtos', produtosController.listar)
+app.get('/produtos/:idCategoria', produtosController.listar)
 app.post('/produtos', produtosController.adicionar)
 
 // autenticação
