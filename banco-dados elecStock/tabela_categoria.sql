@@ -10,6 +10,9 @@ CREATE TABLE `categoria` (
 INSERT INTO categoria
 (nome, cor, imagem)
 VALUES
+('Celulares','primaria','celular'),
+('Notebooks','secundaria','notebook'),
+('Teclados','terceira','teclado'),
 ('Fones de ouvido','terceira','fone'),
 ('CPUs','quarta','cpu'),
 ('Mouses','primaria','mouse'),
